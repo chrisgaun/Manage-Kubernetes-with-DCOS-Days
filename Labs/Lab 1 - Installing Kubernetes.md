@@ -86,3 +86,31 @@ DC/OS packages of Kubernetes versions 1.9.x automatically create an SSH tunnel t
 To access the Dashboard, hover over "kube-proxy" and click the new tab icon
 
 ![](https://i.imgur.com/EAlNXAy.png)
+
+### Install Kubernetes kubectl Command Line
+
+Install the Kubernetes command line by following instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
+**For Macs** with brew installed the command is
+
+```
+brew install kubectl
+```
+
+**For Ubuntu** the command is
+
+```
+sudo apt-get update && sudo apt-get install -y apt-transport-https
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo touch /etc/apt/sources.list.d/kubernetes.list 
+echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
+sudo apt-get update
+sudo apt-get install -y kubectl
+```
+
+Confirm that kubectl is installed and in path /usr/local/bin
+
+```
+kubectl version
+```
+
