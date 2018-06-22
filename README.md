@@ -21,7 +21,7 @@ The instructor will give you access to the presentation.
 
 # Automate Kubernetes
 
-Create and manager your first Kubernetes cluster by following labs [HERE]()
+Create and manager your first Kubernetes cluster by following labs [HERE](https://github.com/chrisgaun/Manage-Kubernetes-with-DCOS-Days/blob/master/Labs/Lab%201%20-%20Installing%20Kubernetes.md)
 
 # Fill Out Survey
 
