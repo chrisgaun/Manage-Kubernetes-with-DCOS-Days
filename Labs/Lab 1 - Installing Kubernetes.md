@@ -14,6 +14,21 @@ Click in the dialogue box too copy the command
 
 Paste that command into your Terminal and press enter
 
+Confirm that dcos is installed and connected to your cluster by running following command
+
+```
+dcos node
+```
+
+The output should be a list of nodes in the cluster
+
+```
+
+   HOSTNAME        IP                         ID                     TYPE                 REGION          ZONE       
+  10.0.0.101   10.0.0.101  94141db5-28df-4194-a1f2-4378214838a7-S0   agent            aws/us-west-2  aws/us-west-2a  
+  10.0.2.100   10.0.2.100  94141db5-28df-4194-a1f2-4378214838a7-S4   agent            aws/us-west-2  aws/us-west-2a
+```
+
 ### Tour DC/OS Catalog
 
 Your instructor will give you a tour of DC/OS UI and catalog. 
