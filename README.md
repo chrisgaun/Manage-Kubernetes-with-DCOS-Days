@@ -34,7 +34,7 @@ Please fill out our survey found [HERE](https://goo.gl/forms/ougjUYkLablAdChQ2)
 * Building a Data Science Pipeline (TensorFlow with Kubeflow) [HERE](https://mesosphere.com/resources/building-data-science-platform/) 
 * Kubernetes Cheatsheet [HERE](https://mesosphere.com/resources/kubernetes-cheatsheet/)
 * Other DC/OS demos [HERE](https://github.com/dcos/demos/) 
-* Community links [HERE]() 
+<!--- * Community links [HERE]() --->  
 * Kubernetes Up & Running [HERE](https://mesosphere.com/resources/running-kubernetes-oreilly-ebook/)
 
 <img src="https://mesosphere.com/wp-content/uploads/2017/09/running-kubernetes_oreilly-ebook.png" width="40%">
