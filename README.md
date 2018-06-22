@@ -1,6 +1,6 @@
 # Manage Kubernetes with DCOS Days
 
-Mesosphere DC/OS open source software turns infrastructure into a Kubernetes cloud provider, automating Kubernetes everywhere: 
+Mesosphere DC/OS open source software transforms any infrastructure into a Kubernetes cloud provider, automating Kubernetes everywhere: 
 
 * Bare metal
 * Virtual machines
