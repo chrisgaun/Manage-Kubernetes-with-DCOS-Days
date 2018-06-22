@@ -79,14 +79,6 @@ When all steps are "COMPLETE", confirm that the "dcos kubernetes" CLI was instal
 dcos kubernetes
 ```
 
-### Kubernetes Dashboard (Official UI of Kubernetes)
-
-DC/OS packages of Kubernetes versions 1.9.x automatically create an SSH tunnel to the Dashboard and connect to the API server
-
-To access the Dashboard, hover over "kube-proxy" and click the new tab icon
-
-![](https://i.imgur.com/EAlNXAy.png)
-
 ### Install Kubernetes kubectl Command Line
 
 Install the Kubernetes command line by following instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
@@ -127,3 +119,12 @@ kubectl get nodes
 ```
 
 
+### Kubernetes Dashboard (Official UI of Kubernetes)
+
+DC/OS packages of Kubernetes versions 1.9.x automatically create an SSH tunnel to the Dashboard and connect to the API server
+
+To access the Dashboard, hover over "kube-proxy" and click the new tab icon
+
+![](https://i.imgur.com/EAlNXAy.png)
+
+Your instructor will now give you an overview of Kubernetes constructs using the UI
