@@ -4,7 +4,7 @@ Mesosphere DC/OS open source software turns any resource into a Kubernetes cloud
 
 * Bare metal
 * Virtual machines
-* Multi-clouds. 
+* Multi-clouds
 
 # Background
 
