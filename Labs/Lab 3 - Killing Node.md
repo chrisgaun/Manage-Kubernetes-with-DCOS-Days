@@ -16,3 +16,5 @@ Then run
 ```
 kill -9 62
 ```
+
+You may need to refresh brower. Watch as Kubernetes nodes are killed then come back online. 
