@@ -128,7 +128,27 @@ You can increase the number of pods in your Deployment by applying a new YAML
 file. This YAML file sets `replicas` to 4, which specifies that the Deployment
 should have four pods:
 
-{{< code file="deployment-scale.yaml" >}}
+```
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+  replicas: 4 # Update the replicas from 2 to 4
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.8
+        ports:
+        - containerPort: 80
+```
 
 1. Apply the new YAML file:
 
@@ -146,8 +166,3 @@ should have four pods:
         nginx-deployment-148880595-fxcez   1/1       Running   0          2m
         nginx-deployment-148880595-rwovn   1/1       Running   0          2m
 
-## Deleting a deployment
-
-Delete the deployment by name:
-
-    kubectl delete deployment nginx-deployment
