@@ -37,8 +37,8 @@ Please fill out our survey found [HERE](https://goo.gl/forms/ougjUYkLablAdChQ2)
 * Community links [HERE]() 
 * Kubernetes Up & Running [HERE](https://mesosphere.com/resources/running-kubernetes-oreilly-ebook/)
 
-![Kubernetes Up & Running](https://mesosphere.com/wp-content/uploads/2017/09/running-kubernetes_oreilly-ebook.png)
+<img src="https://mesosphere.com/wp-content/uploads/2017/09/running-kubernetes_oreilly-ebook.png" width="40%">
 
 # Sponsors
 
-![Mesosphere](https://mesosphere.com/wp-content/uploads/2017/11/mesosphere-logo.png)
+<img src="hhttps://mesosphere.com/wp-content/uploads/2017/11/mesosphere-logo.png" width="40%">
