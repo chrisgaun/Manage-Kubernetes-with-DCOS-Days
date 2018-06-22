@@ -6,10 +6,10 @@ In the DC/OS UI under Services, click on your Kubernetes cluster (Not kube-proxy
 
 In the top left, click Edit.
 
-[](https://i.imgur.com/2dYmVLp.png)
+![](https://i.imgur.com/2dYmVLp.png)
 
 Under Kubernetes in left hand menu, choose the high availability box
 
-[](https://i.imgur.com/PkGHHlJ.png)
+![](https://i.imgur.com/PkGHHlJ.png)
 
 Save configuration and watch new components come online. 
