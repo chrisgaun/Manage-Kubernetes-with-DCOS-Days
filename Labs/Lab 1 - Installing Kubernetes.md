@@ -108,9 +108,22 @@ sudo apt-get update
 sudo apt-get install -y kubectl
 ```
 
-Confirm that kubectl is installed and in path /usr/local/bin
+Confirm that kubectl is installed and in path /usr/local/bin (it will say it is not connected to dcos cluster yet which is ok)
 
 ```
 kubectl version
 ```
+
+Once installed, connect kubectl to cluster
+
+```
+dcos kubernetes kubeconfig
+```
+
+Confirm connection
+
+```
+kubectl get nodes
+```
+
 
