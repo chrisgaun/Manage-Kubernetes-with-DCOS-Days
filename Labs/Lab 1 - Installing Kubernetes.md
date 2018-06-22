@@ -72,3 +72,17 @@ deploy (serial strategy) (COMPLETE)
 └─ public-node (parallel strategy) (COMPLETE)
    └─ kube-node-public-0:[kube-proxy, coredns, kubelet] (COMPLETE)
 ```
+
+When all steps are "COMPLETE", confirm that the "dcos kubernetes" CLI was installed.
+
+```
+dcos kubernetes
+```
+
+### Kubernetes Dashboard (Official UI of Kubernetes)
+
+DC/OS packages of Kubernetes versions 1.9.x automatically create an SSH tunnel to the Dashboard and connect to the API server
+
+To access the Dashboard, hover over "kube-proxy" and click the new tab icon
+
+![](https://i.imgur.com/rxUlcd7.png)
