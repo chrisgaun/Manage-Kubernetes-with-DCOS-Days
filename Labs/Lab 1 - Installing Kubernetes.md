@@ -14,4 +14,15 @@ Click in the dialogue box too copy the command
 
 Paste that command into your Terminal and press enter
 
+### Tour DC/OS Catalog
+
+Your instructor will give you a tour of DC/OS UI and catalog. 
+
+### Install Kubernetes 
+
+To install Kubernetes enter this command into your terminal
+
+```
+dcos package install kubernetes --package-version=1.0.3-1.9.7
+```
 
