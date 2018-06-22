@@ -19,9 +19,9 @@ Your instructor has set up lab enviroments and will hand out IP addresses and cr
 
 The instructor will give you access to the presentation. 
 
-# Automate First Kubernetes Cluster on DC/OS
+# Automate Kubernetes
 
-
+Create and manager your first Kubernetes cluster by following labs [HERE]()
 
 # Fill Out Survey
 
