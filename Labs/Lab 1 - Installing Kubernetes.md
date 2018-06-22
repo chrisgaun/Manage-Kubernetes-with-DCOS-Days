@@ -85,4 +85,4 @@ DC/OS packages of Kubernetes versions 1.9.x automatically create an SSH tunnel t
 
 To access the Dashboard, hover over "kube-proxy" and click the new tab icon
 
-![](https://i.imgur.com/rxUlcd7.png)
+![](https://i.imgur.com/EAlNXAy.png)
