@@ -41,4 +41,4 @@ Please fill out our survey found [HERE](https://goo.gl/forms/ougjUYkLablAdChQ2)
 
 # Sponsors
 
-<img src="hhttps://mesosphere.com/wp-content/uploads/2017/11/mesosphere-logo.png" width="40%">
+<img src="https://mesosphere.com/wp-content/uploads/2017/11/mesosphere-logo.png" width="40%">
