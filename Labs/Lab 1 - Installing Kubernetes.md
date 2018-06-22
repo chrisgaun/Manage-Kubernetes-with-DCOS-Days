@@ -41,3 +41,34 @@ To install Kubernetes enter this command into your terminal
 dcos package install kubernetes --package-version=1.0.3-1.9.7
 ```
 
+You can see the installation runbook automation and status of installation of each component with this command
+
+```
+dcos kubernetes plan show deploy
+```
+
+It should look like this when completed
+
+```
+deploy (serial strategy) (COMPLETE)
+├─ etcd (serial strategy) (COMPLETE)
+│  └─ etcd-0:[peer] (COMPLETE)
+├─ apiserver (parallel strategy) (COMPLETE)
+│  └─ kube-apiserver-0:[instance] (COMPLETE)
+├─ mandatory-addons (serial strategy) (COMPLETE)
+│  ├─ mandatory-addons-0:[additional-cluster-role-bindings] (COMPLETE)
+│  ├─ mandatory-addons-0:[kube-dns] (COMPLETE)
+│  ├─ mandatory-addons-0:[metrics-server] (COMPLETE)
+│  ├─ mandatory-addons-0:[dashboard] (COMPLETE)
+│  └─ mandatory-addons-0:[ark] (COMPLETE)
+├─ kubernetes-api-proxy (parallel strategy) (COMPLETE)
+│  └─ kubernetes-api-proxy-0:[install] (COMPLETE)
+├─ controller-manager (parallel strategy) (COMPLETE)
+│  └─ kube-controller-manager-0:[instance] (COMPLETE)
+├─ scheduler (parallel strategy) (COMPLETE)
+│  └─ kube-scheduler-0:[instance] (COMPLETE)
+├─ node (parallel strategy) (COMPLETE)
+│  └─ kube-node-0:[kube-proxy, coredns, kubelet] (COMPLETE)
+└─ public-node (parallel strategy) (COMPLETE)
+   └─ kube-node-public-0:[kube-proxy, coredns, kubelet] (COMPLETE)
+```
