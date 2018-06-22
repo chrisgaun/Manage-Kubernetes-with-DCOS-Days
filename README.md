@@ -1,6 +1,10 @@
-# Kubernetes-with-DCOS-Days
+# Manage Kubernetes with DCOS Days
 
-Kubernetes on Mesosphere DC/OS automates open source Kubernetes on bare metal, virtual machines and multi-clouds with push button control and automated self-healing.
+Mesosphere DC/OS open source software turns any resource into a Kubernetes cloud provider, automating Kubernetes everywhere: 
+
+* Bare metal
+* Virtual machines
+* Multi-clouds. 
 
 # Background
 
