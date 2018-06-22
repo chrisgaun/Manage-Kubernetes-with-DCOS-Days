@@ -6,12 +6,18 @@ Kubernetes on Mesosphere DC/OS automates open source Kubernetes on bare metal, v
 
 Your instructor has set up lab enviroments and will hand out IP addresses and credentials. After the course, you can install an open source DC/OS cluster 
 * **Public Cloud Installation** - Kubernetes with DC/OS Quickstart (public cloud) for when go home [HERE](https://github.com/mesosphere/dcos-kubernetes-quickstart)
-* **On Premesis / Edge Installation** - DC/OS with Ansible [HERE](https://github.com/dcos-labs/ansible-dcos) 
+* **On Premesis Installation** - DC/OS with Ansible [HERE](https://github.com/dcos-labs/ansible-dcos) 
 * **Slack** - Join DC/OS Slack [HERE](https://chat.dcos.io/)
 
-# Course Materials
+![](https://i.imgur.com/rIJ1ZxF.png)
 
-# Create 
+# Course Material
+
+The instructor will give you access to the presentation. 
+
+# Automate First Kubernetes Cluster on DC/OS
+
+
 
 # Fill Out Survey
 
@@ -24,10 +30,12 @@ Please fill out our survey found [HERE](https://goo.gl/forms/ougjUYkLablAdChQ2)
 * Building a Data Science Pipeline (TensorFlow with Kubeflow) [HERE](https://mesosphere.com/resources/building-data-science-platform/) 
 * Kubernetes Cheatsheet [HERE](https://mesosphere.com/resources/kubernetes-cheatsheet/)
 * Other DC/OS demos [HERE](https://github.com/dcos/demos/) 
+* Community links [HERE]() 
 * Kubernetes Up & Running [HERE](https://mesosphere.com/resources/running-kubernetes-oreilly-ebook/)
 
 ![Kubernetes Up & Running](https://mesosphere.com/wp-content/uploads/2017/09/running-kubernetes_oreilly-ebook.png)
 
 # Sponsors
 
+Mesosphere
 ![Mesosphere](https://mesosphere.com/wp-content/uploads/2017/11/mesosphere-logo.png)
