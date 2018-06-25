@@ -12,4 +12,8 @@ Under Kubernetes in left hand menu, choose the high availability box
 
 ![](https://i.imgur.com/PkGHHlJ.png)
 
-Save configuration and watch new components come online. 
+Save configuration and watch new components come online with the following command or in the GUI
+
+```
+dcos kubernetes plan status deploy
+```
