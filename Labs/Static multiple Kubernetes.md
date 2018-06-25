@@ -16,9 +16,13 @@ For operations in particular, althought there is no public guidance, individual 
 
 ### Multiple Kubernetes Cluters in DC/OS
 
-Currently, DC/OS supports multiple Kubernetes clusters with the limiation that there is one Kubernetes worker node per Mesos agent. In the early Fall, DC/OS will release a high density Kubernetes 
+Currently, DC/OS supports multiple Kubernetes clusters with the limiation that there is one Kubernetes worker node per Mesos agent. In the early Fall of 2018, DC/OS will release a high density Kubernetes package that can include multiple kubelets per Mesos agent:
 
-###############Install PreReqs Before Starting###############
+![](https://i.imgur.com/5xbyAQK.png)
+
+Follows is instructions on how to install multiple Kubernetes clusters using DC/OS Placement Constraints. 
+
+### Install Prereqs 
 dcos package install dcos-enterprise-cli --yes
 dcos package install kafka --cli --yes
 dcos package install kubernetes --package-version=1.0.3-1.9.7 --cli --yes
@@ -75,6 +79,7 @@ Show options, TLS, zones, vips, JSON
 Show deploying multiple instances of services
 Deploy into AWS
 Deploy into Azure
+
 ###############Scale K8s###############
 dcos kubernetes update --options=k8s-package-options-scale.json
 dcos kubernetes plan status deploy
@@ -99,9 +104,11 @@ Upload Jar to Flink
 Submit job to Flink
 dcos marathon app add https://raw.githubusercontent.com/dcos/demos/master/flink/1.11/generator/generator.json
 #Look, no need to dockerize, how cool is that.
+
 ###############Show Output###############
 dcos marathon app add https://raw.githubusercontent.com/dcos/demos/master/flink/1.11/actor/fraudDisplay.json
 Show stdout log, will see transactions after about 1 min or so.
+
 ###############Move Workloads Around###############
 move back and forth between local and remote regions
 logs still work, after slight pause transactions resume
