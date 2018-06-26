@@ -45,7 +45,7 @@ Here is how this works:
 * "HAPROXY_0_SSL_CERT": "/etc/ssl/cert.pem" tells Marathon-LB to expose the service with the self-signed Marathon-LB certificate (which has no CN)
 * The last label HAPROXY_0_BACKEND_SERVER_OPTIONS indicates that Marathon-LB should forward traffic to the endpoint apiserver.kubernetes.l4lb.thisdcos.directory:6443 rather than to the dummy application, and that the connection should be made using TLS without verification.
 
-Find your public DC/OS agent IP
+Find your public DC/OS agent IP (make sure to have jq installed - on Mac "brew install jq"
 
 ```
 for id in $(dcos node --json | jq --raw-output '.[] | select(.attributes.public_ip == "true") | .id'); \
