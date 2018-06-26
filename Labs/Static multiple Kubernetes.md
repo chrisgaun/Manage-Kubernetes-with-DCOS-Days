@@ -16,128 +16,40 @@ For operations in particular, althought there is no public guidance, individual 
 
 ### Multiple Kubernetes Cluters in DC/OS
 
+Before you start, make sure you have enough DC/OS nodes. If you want a 2 Kubernetes clusters with 7 nodes (including the Master and etcd nodes) then you will need 14 DC/OS nodes in current release. 
+
 Currently, DC/OS supports multiple Kubernetes clusters with the limiation that there is one Kubernetes worker node per Mesos agent. In the early Fall of 2018, DC/OS will release a high density Kubernetes package that can include multiple kubelets per Mesos agent:
 
 ![](https://i.imgur.com/5xbyAQK.png)
 
 Follows is instructions on how to install multiple Kubernetes clusters using DC/OS Placement Constraints. 
 
-### Install Prereqs 
-dcos package install dcos-enterprise-cli --yes
-dcos package install kafka --cli --yes
-dcos package install kubernetes --package-version=1.0.3-1.9.7 --cli --yes
-dcos security org service-accounts keypair private-key.pem public-key.pem
-dcos security org service-accounts create -p public-key.pem -d 'kubernetes service account' kubernetes
-dcos security secrets create-sa-secret private-key.pem kubernetes kubernetes/sa
-dcos security org groups add_user superusers kubernetes
+### Provision First Kubernetes Cluster 
 
-###############Show K8s Catalog Item###############
-Show the various settings
+If you do not already have a Kubernetes cluster on DC/OS, follow the instructions [here](https://github.com/chrisgaun/Manage-Kubernetes-with-DCOS-Days/blob/chrisgaun-patch-1/Labs/Lab%201%20-%20Installing%20Kubernetes.md) to get the first one up and running. 
 
-###############Install K8s############### [10Min]
-via the GUI
-kubernetes
-kubernetes/sa
+### Provision Multiple Kubernetes Clusters
 
+Multiple Kubernetes clusters is made possible via Placement Constraints. Before you start, navigate to the DC/OS Nodes tab in the GUI and record the IP addresses of 5 of the unused nodes. 
 
-###############Show Progress, Explain Deployment###############
-dcos kubernetes plan status deploy
-talk about fw scheduler, what its doing, etc
+It is easiest to deploy multiple Kubernetes using the DC/OS GUI. Navigate to the DC/OS Catalog in the GUI (left menu) and search for "Kubernetes". Deploy K8s 1.10.4 using "Review & Run" 
 
-###############Make K8s HA############### [5Min]
-Click HA box in GUI, show how easy it is to expan etcd, apiserver, etc.
+![](https://i.imgur.com/PphTYDg.png)
 
-###############Show Progress###############
-dcos kubernetes plan status deploy
+Change the name of the Kubernetes service to something unique. 
 
-###############Show Secrets and Service Accounts###############
-In GUI, walk through what has been created, why it is important, downloading the certs from endpoints tab
-I don't need to worry about certs for the apiserver, etc, they are distributed to those new instances for me
+```
+kubernetes-2
+```
 
+Under Kubernetes change the CIDR to not overlap. 
 
-###############Connect, Show using default API###############
-dcos kubernetes kubeconfig
-kubectl get nodes
-kubectl get namespaces
-kubectl get pods
-kubectl create -f deployment.yaml
-######Show that the yaml is no different, you do not need to change yamls for K8s on DCOS as it is vanilla K8s
-kubectl get pods
-####explain/show networking for pods, creation, allocation........
-
-###############Upgrade K8s############### [15Min]
-dcos package describe kubernetes --package-versions
-dcos kubernetes update --package-version="1.0.3-1.9.7"
-
-###############Show Progress###############
-dcos kubernetes plan status deploy
-show pods still running
-
-###############Deploy Kafka(while waiting for K8s upgrade)###############
-Talk about data services
-Show options, TLS, zones, vips, JSON
-Show deploying multiple instances of services
-Deploy into AWS
-Deploy into Azure
-
-###############Scale K8s###############
-dcos kubernetes update --options=k8s-package-options-scale.json
-dcos kubernetes plan status deploy
-
-###############Multi K8s###############
-Deploy K8s 1.10.4 via GUI, adding following constraints:
-name: kubernetes-2
+```
 service cidr: 10.200.0.0/16
-[["@hostname", "unlike", "10.11.17.21|10.11.13.216|10.11.13.31|10.11.18.20|10.11.18.2"]]
-Yay, two clusters.
+```
 
-###############Show Hybrid Cloud###############
-Deploy /dcos-website
-Container Image: mesosphere/dcos-website:cff383e4f5a51bf04e2d0177c5023e7cebcab3cc
-Move website around, show that it respects HCs and stays available
+Under Kubernetes -> "control plane placement" and "node placement" add the addresses of the unoccupied nodes. 
 
-###############Deploy App and tie it all together###############
-dcos kafka topic create transactions --replication 3
-dcos kafka topic create fraud --replication 3
-Deploy Flink
-Upload Jar to Flink
-Submit job to Flink
-dcos marathon app add https://raw.githubusercontent.com/dcos/demos/master/flink/1.11/generator/generator.json
-#Look, no need to dockerize, how cool is that.
-
-###############Show Output###############
-dcos marathon app add https://raw.githubusercontent.com/dcos/demos/master/flink/1.11/actor/fraudDisplay.json
-Show stdout log, will see transactions after about 1 min or so.
-
-###############Move Workloads Around###############
-move back and forth between local and remote regions
-logs still work, after slight pause transactions resume
-
-###############Delete and Move into K8s###############
-Delete generator and display from marathon
-dcos kubernetes kubeconfig to the original K8s cluster if needed
-kubectl apply -f https://raw.githubusercontent.com/dcos/demos/master/flink-k8s/1.11/generator/flink-demo-generator.yaml
-kubectl apply -f https://raw.githubusercontent.com/dcos/demos/master/flink-k8s/1.11/actor/flink-demo-actor.yaml
-kubectl get deployments
-kubectl get pods
-kubectl logs flink-demo-generator<insert>
-Show it is working the same.
-
-###############Done###############
-
-
-
-amrabdelra-tfbe9a-pub-agt-elb-2125765910.us-east-1.elb.amazonaws.com
-
-amrabdelra-tfbe9a-pub-agt-elb-2125765910.us-east-1.elb.amazonaws.com
-
-
-
-
-
-mesosphere/dcos-website:cff383e4f5a51bf04e2d0177c5023e7cebcab3cc
-
-HAPROXY_GROUP
-HAPROXY_0_VHOST
-
-
+```
+[["@hostname", "unlike", "<IP_ADDRESS_1>|<IP_ADDRESS_2>|<IP_ADDRESS_3>|<IP_ADDRESS_4>|<IP_ADDRESS_5>"]]
+```
