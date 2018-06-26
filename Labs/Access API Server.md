@@ -2,7 +2,11 @@
 
 Marathon-lb provides wrapper around HA proxy. Make sure DC/OS and K8s have public nodes. 
 
-Create a Marathon-lb service
+Create a Marathon-lb service in the service catalog
+
+```
+dcos package install marathon-lb
+```
 
 Create a Marathon application with following JSON. 
 ```
