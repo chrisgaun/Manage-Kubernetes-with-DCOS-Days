@@ -48,7 +48,7 @@ Under Kubernetes change the CIDR to not overlap.
 service cidr: 10.200.0.0/16
 ```
 
-Under Kubernetes -> "control plane placement" and "node placement" add the addresses of the unoccupied nodes. 
+Under Kubernetes -> "control plane placement" and "node placement" add the addresses of the occupied nodes. 
 
 ```
 [["@hostname", "unlike", "<IP_ADDRESS_1>|<IP_ADDRESS_2>|<IP_ADDRESS_3>|<IP_ADDRESS_4>|<IP_ADDRESS_5>"]]
