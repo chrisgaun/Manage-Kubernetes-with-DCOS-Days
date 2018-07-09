@@ -1,6 +1,6 @@
 ### Access the Cluster
 
-The instructor will give you access to IP address and credentials that you will need to SSH into.
+The Lab instructor will give you access the web UI via cluster IP address as well as any login credentials necessary to complete these labs
 
 ### Set Up DC/OS Command Line
 
@@ -8,11 +8,13 @@ Set up the DC/OS command line by clicking on the top left and choosing "install 
 
 ![CLI](https://i.imgur.com/p4kqIj6.png)
 
-Click in the dialogue box too copy the command
+Click in the dialogue box to copy the command
 
 ![Copy Command](https://i.imgur.com/3rQ2Unj.png)
 
 Paste that command into your Terminal and press enter
+
+You will be prompted for the cluster username/password. These will be provided by the lab instructor
 
 Confirm that dcos is installed and connected to your cluster by running following command
 
@@ -41,13 +43,13 @@ To install Kubernetes enter this command into your terminal
 dcos package install kubernetes --package-version=1.0.3-1.9.7
 ```
 
-You can see the installation runbook automation and status of installation of each component with this command
+You can see the installation runbook automation and status of installation of each component with this command.
 
 ```
-dcos kubernetes plan show deploy
+dcos kubernetes plan status deploy
 ```
 
-It should look like this when completed
+It should look like this when completed:
 
 ```
 deploy (serial strategy) (COMPLETE)
@@ -55,12 +57,6 @@ deploy (serial strategy) (COMPLETE)
 │  └─ etcd-0:[peer] (COMPLETE)
 ├─ apiserver (parallel strategy) (COMPLETE)
 │  └─ kube-apiserver-0:[instance] (COMPLETE)
-├─ mandatory-addons (serial strategy) (COMPLETE)
-│  ├─ mandatory-addons-0:[additional-cluster-role-bindings] (COMPLETE)
-│  ├─ mandatory-addons-0:[kube-dns] (COMPLETE)
-│  ├─ mandatory-addons-0:[metrics-server] (COMPLETE)
-│  ├─ mandatory-addons-0:[dashboard] (COMPLETE)
-│  └─ mandatory-addons-0:[ark] (COMPLETE)
 ├─ kubernetes-api-proxy (parallel strategy) (COMPLETE)
 │  └─ kubernetes-api-proxy-0:[install] (COMPLETE)
 ├─ controller-manager (parallel strategy) (COMPLETE)
@@ -68,12 +64,18 @@ deploy (serial strategy) (COMPLETE)
 ├─ scheduler (parallel strategy) (COMPLETE)
 │  └─ kube-scheduler-0:[instance] (COMPLETE)
 ├─ node (parallel strategy) (COMPLETE)
-│  └─ kube-node-0:[kube-proxy, coredns, kubelet] (COMPLETE)
-└─ public-node (parallel strategy) (COMPLETE)
-   └─ kube-node-public-0:[kube-proxy, coredns, kubelet] (COMPLETE)
+│  ├─ kube-node-0:[kube-proxy] (COMPLETE)
+│  ├─ kube-node-0:[coredns] (COMPLETE)
+│  └─ kube-node-0:[kubelet] (COMPLETE)
+├─ public-node (parallel strategy) (COMPLETE)
+└─ mandatory-addons (serial strategy) (COMPLETE)
+   ├─ mandatory-addons-0:[kube-dns] (COMPLETE)
+   ├─ mandatory-addons-0:[metrics-server] (COMPLETE)
+   ├─ mandatory-addons-0:[dashboard] (COMPLETE)
+   └─ mandatory-addons-0:[ark] (COMPLETE)
 ```
 
-When all steps are "COMPLETE", confirm that the "dcos kubernetes" CLI was installed.
+When all steps are "COMPLETE", confirm that the DC/OS Kubernetes CLI was installed.
 
 ```
 dcos kubernetes
