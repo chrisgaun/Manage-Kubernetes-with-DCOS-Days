@@ -55,9 +55,9 @@ do dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --mas
 Connect kubectl using following command and replacing “https://kube-apiserver.example.com:6443” with the public IP address 
 
 ```
-$ dcos kubernetes kubeconfig \
-    --apiserver-url https://kube-apiserver.example.com:6443 \
-    --insecure-skip-tls-verify
+$ dcos kubernetes --name=[CLUSTERNAME] kubeconfig \    
+  --apiserver-url https://54.202.33.83:6443 \
+  --insecure-skip-tls-verify
 ```
 
 You will be able to access the Kubernetes Dashboard by running:
