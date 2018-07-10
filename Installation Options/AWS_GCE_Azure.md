@@ -1,0 +1,1 @@
+You can install a Kubernetes on DC/OS cluster on AWS, GCE or Azure with few commands by following instructions here [https://github.com/mesosphere/dcos-kubernetes-quickstart](https://github.com/mesosphere/dcos-kubernetes-quickstart)
