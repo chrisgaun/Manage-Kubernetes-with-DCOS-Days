@@ -145,7 +145,7 @@ $ kubectl logs flink-demo-generator-655890656-8d1ls
 
 After install your DC/OS UI should look as follows:
 
-![All services of the fintrans demo in the DC/OS UI](img/services-list.png)
+![All services of the fintrans demo in the DC/OS UI](https://github.com/chrisgaun/demos/raw/master/flink-k8s/1.11/img/services-list.png)
 
 ## Use
 
@@ -156,17 +156,17 @@ First we need to upload the [jar file](https://downloads.mesosphere.com/dcos-dem
 
 In the Services tab of the DCOS UI, hover over the name of the flink service, and click on the link which appears to the right of it. This will open the Flink web UI in a new tab.
 
-![Flink UI](img/flink-gui.png)
+![Flink UI](https://github.com/chrisgaun/demos/raw/master/flink-k8s/1.11/img/flink-gui.png)
 
 In the Flink web UI, click on Submit New Job, then click the Add New button. This will allow you to select the jar file from $DEMO_HOME and upload it.
 
 
-![Jar file uploaded](img/jar-uploaded.png)
+![Jar file uploaded](https://github.com/chrisgaun/demos/raw/master/flink-k8s/1.11/img/jar-uploaded.png)
 
 
 Once we hit Submit, we should see the job begin to run in the Flink web UI.
 
-![Running Flink job](img/running-job.png)
+![Running Flink job](https://github.com/chrisgaun/demos/raw/master/flink-k8s/1.11/img/running-job.png)
 
 ### Viewing Output
 
