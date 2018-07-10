@@ -145,7 +145,12 @@ Deploy kubectl-proxy service:
 dcos marathon app add kubectl-proxy.json
 ```
 
-Navigate to the Marathon-LB service and determine:
+Find your public DC/OS agent IP (make sure to have jq installed - on Mac "brew install jq"
+
+```
+for id in $(dcos node --json | jq --raw-output '.[] | select(.attributes.public_ip == "true") | .id'); \
+do dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --mesos-id=$id "curl -s ifconfig.co" ; done 2>/dev/null
+```
 
 Connect kubectl to DC/OS:
 ```
