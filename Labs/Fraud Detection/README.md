@@ -21,7 +21,7 @@ A video of this demo can be found [here](https://www.youtube.com/watch?v=bwPXNlV
 
 ## Architecture
 
-![Financial transaction processing demo architecture](img/kafka-flink-arch.png)
+![Financial transaction processing demo architecture](https://github.com/chrisgaun/demos/blob/master/flink-k8s/1.11/img/kafka-flink-arch.png?raw=true)
 
 This demo implements a data processing infrastructure that is able to spot money laundering. In the context of money laundering, we  want to detect amounts larger than $10.000 transferred between two accounts, even if that amount is split into many small batches.  See also [US](https://www.fincen.gov/history-anti-money-laundering-laws) and [EU](http://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32015L0849) legislation and regulations on this topic for more information.
 
