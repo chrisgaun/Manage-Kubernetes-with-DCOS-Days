@@ -20,13 +20,13 @@ $ dcos package describe kubernetes --package-versions
 Before starting the update process, it is mandatory to update the CLI to the new version, in our case 1.1.1-1.10.4:
 
 ```
-$ dcos package install kubernetes --cli --package-version=1.1.1-1.10.4
+$ dcos package install kubernetes --cli --package-version=1.2.0-1.10.5
 ```
 
 Below is how the user starts the package version update:
 
 ```
-$ dcos kubernetes update --package-version=1.1.1-1.10.4
+$ dcos kubernetes update --package-version=1.2.0-1.10.5
 About to start an update from version <CURRENT_VERSION> to <NEW_VERSION>
 
 Updating these components means the Kubernetes cluster may experience some
