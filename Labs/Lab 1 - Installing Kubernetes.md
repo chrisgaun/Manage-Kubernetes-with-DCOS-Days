@@ -38,18 +38,19 @@ Your instructor will give you a tour of DC/OS UI and catalog.
 To install Kubernetes enter this command into your terminal
 
 ```
-dcos package install kubernetes --package-version=1.0.3-1.9.7
+dcos package install kubernetes --package-version=1.1.0-1.10.3
 ```
 
 You can see the installation runbook automation and status of installation of each component with this command
 
 ```
-dcos kubernetes plan show deploy
+dcos kubernetes plan status deploy
 ```
 
 It should look like this when completed
 
 ```
+$ dcos kubernetes plan status deploy
 deploy (serial strategy) (COMPLETE)
 ├─ etcd (serial strategy) (COMPLETE)
 │  └─ etcd-0:[peer] (COMPLETE)
@@ -70,7 +71,6 @@ deploy (serial strategy) (COMPLETE)
 ├─ node (parallel strategy) (COMPLETE)
 │  └─ kube-node-0:[kube-proxy, coredns, kubelet] (COMPLETE)
 └─ public-node (parallel strategy) (COMPLETE)
-   └─ kube-node-public-0:[kube-proxy, coredns, kubelet] (COMPLETE)
 ```
 
 When all steps are "COMPLETE", confirm that the "dcos kubernetes" CLI was installed.
@@ -106,25 +106,70 @@ Confirm that kubectl is installed and in path /usr/local/bin (it will say it is 
 kubectl version
 ```
 
-Once installed, connect kubectl to cluster
-
+### Connecting kubectl to DC/OS
+Deploy Marathon-LB:
 ```
-dcos kubernetes kubeconfig
+dcos package install marathon-lb
 ```
 
-Confirm connection
+kubectl-proxy service:
+```
+$ cat kubectl-proxy.json
+{
+  "id": "/kubectl-proxy",
+  "instances": 1,
+  "cpus": 0.001,
+  "mem": 16,
+  "cmd": "tail -F /dev/null",
+  "container": {
+    "type": "MESOS"
+  },
+  "portDefinitions": [
+    {
+      "protocol": "tcp",
+      "port": 0
+    }
+  ],
+  "labels": {
+    "HAPROXY_0_MODE": "http",
+    "HAPROXY_GROUP": "external",
+    "HAPROXY_0_SSL_CERT": "/etc/ssl/cert.pem",
+    "HAPROXY_0_PORT": "6443",
+    "HAPROXY_0_BACKEND_SERVER_OPTIONS": "  server kube-apiserver apiserver.kubernetes.l4lb.thisdcos.directory:6443 ssl verify none\n"
+  }
+}
+```
+
+Deploy kubectl-proxy service:
+```
+dcos marathon app add kubectl-proxy.json
+```
+
+Navigate to the Marathon-LB service and determine:
+
+Connect kubectl to DC/OS:
+```
+dcos kubernetes kubeconfig \
+    --apiserver-url https://<MARATHON-LB_PUBLIC_IP>:6443 \
+    --insecure-skip-tls-verify
+```
+
+Confirm connection:
 
 ```
 kubectl get nodes
 ```
 
-
 ### Kubernetes Dashboard (Official UI of Kubernetes)
 
-DC/OS packages of Kubernetes versions 1.9.x automatically create an SSH tunnel to the Dashboard and connect to the API server
+To access the dashboard run:
 
-To access the Dashboard, hover over "kube-proxy" and click the new tab icon
+```
+kubectl proxy
+```
 
-![](https://i.imgur.com/EAlNXAy.png)
+Point your browser to:
 
-Your instructor will now give you an overview of Kubernetes constructs using the UI
+```
+http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/
+```
