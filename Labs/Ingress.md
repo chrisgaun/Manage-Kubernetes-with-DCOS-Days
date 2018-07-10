@@ -165,16 +165,20 @@ We could define a Service, and then have the ports allocated automatically by Ku
 Once our ingress controller is running, we can test connectivity to our public IP address. Find the public IP using:
 
 ```
+for id in $(dcos node --json | jq --raw-output '.[] | select(.attributes.public_ip == "true") | .id'); \
+do dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --mesos-id=$id "curl -s ifconfig.co" ; done 2>/dev/null
 ```
 
 Once we have our public IP, we can use curl to connect to port 80 on this host. 
 
-Mattbook-Pro:ingress matt$ curl 54.171.202.99
+```
+Mattbook-Pro:ingress matt$ curl [PUBLIC IP]
 default backend - 404
+```
 
 We can see from the response code that we’re hitting our default backend, which is exactly what the expected behaviour is since we don’t yet have any ingress configuration. 
 
-Let’s go ahead and deploy a simple service we can use for our first test of the ingress controller. We’re going to use 
+Let’s go ahead and deploy a simple service we can use for our first test of the ingress controller. We’re going to use for our YAML
 
 ```
 ---
@@ -213,16 +217,19 @@ spec:
   ports:
     - port: 80
       targetPort: 80
-``
+```
 
 Lets go ahead and deploy that :
 
+```
 Mattbook-Pro:ingress matt$ kubectl create -f helloworld.yaml
 deployment "hello-world" created
 service "hello-world" created
+```
 
 We now need to define an Ingress for the ingress controller to configure external access to our test application. 
 
+```
 Mattbook-Pro:ingress matt$ cat helloworld-ingress.yaml 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -239,14 +246,18 @@ spec:
         backend:
           serviceName: hello-world
           servicePort: 80
+```
 
 In this configuration, we use an annotation to define which ingress class Kubernetes should use, we define the backend we should use, in this case our hello-world service, and we define the host, path and port which the ingress should be used on. 
 
+```
 Mattbook-Pro:ingress matt$ kubectl create -f helloworld-ingress.yaml 
 ingress "hello-world-ingress" created
+```
 
-In order to test this, we need to do some local configuration on our kubectl host to map api.example.com to the public IP of our DC/OS cluster. This will depend on your operating system, but on MacOS and Linux you will want to add an entry in your /etc/hosts file as below :
+In order to test this, we need to do some local configuration on our kubectl host to map api.example.com to the public IP of our DC/OS cluster. This will depend on your operating system, but on MacOS and Linux you will want to add an entry in your /etc/hosts file as below:
 
+```
 Mattbook-Pro:ingress matt$ cat /etc/hosts
 ##
 # Host Database
@@ -257,19 +268,24 @@ Mattbook-Pro:ingress matt$ cat /etc/hosts
 127.0.0.1	localhost
 255.255.255.255	broadcasthost
 ::1             localhost
-54.171.202.99 api.example.com
+[PUBLIC IP] api.example.com
+```
 
 With that entry in our /etc/hosts file, we can now resolve api.example.com to the public IP of our DC/OS cluster, so we can use curl once again to test out the ingress rule. 
 
+```
 Mattbook-Pro:ingress matt$ curl api.example.com
 "Hello from Kubernetes!"
+```
 
 Success ! We see that our request has been routed to the correct service. We can also test that if we use the IP address instead of the hostname, then we hit the default backend with a 404 response, as expected.
 
-Mattbook-Pro:ingress matt$ curl 54.171.202.99
+```
+Mattbook-Pro:ingress matt$ curl [PUBLIC IP]
 default backend - 404
+```
 
-Let’s add a second service, which does something slightly different :
+Let’s add a second service, which does something slightly different:
 
 ```
 Mattbook-Pro:ingress matt$ cat holamundo.yaml 
@@ -310,14 +326,17 @@ spec:
     - port: 80
       targetPort: 80
 ```
+Enter
 
+```
 Mattbook-Pro:ingress matt$ kubectl create -f holamundo.yaml 
 deployment "hola-mundo" created
 service "hola-mundo" created
-
+```
 
 And now let’s configure ingress to this on a different path to the same host :
 
+```
 Mattbook-Pro:ingress matt$ cat holamundo-ingress.yaml 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -334,20 +353,25 @@ spec:
         backend:
           serviceName: hola-mundo
           servicePort: 80
+```
 
-
+Enter
+```
 Mattbook-Pro:ingress matt$ kubectl create -f holamundo-ingress.yaml 
 ingress "holamundo-ingress" created
+```
 
 Now when we curl our endpoints, we can see that on the root we have our first service, and on the /hola endpoint we have our new service. 
 
+```
 Mattbook-Pro:ingress matt$ curl api.example.com
 "Hello from Kubernetes!"
 Mattbook-Pro:ingress matt$ curl api.example.com/hola
 "Hola de Kubernetes!"
+```
+Let’s try something different, first let’s add another couple of host entries to our /etc/hosts file (replace [PUBLIC IP] with public IP)
 
-Let’s try something different, first let’s add another couple of host entries to our /etc/hosts file :
-
+```
 Mattbook-Pro:ingress matt$ cat /etc/hosts
 ##
 # Host Database
@@ -358,12 +382,14 @@ Mattbook-Pro:ingress matt$ cat /etc/hosts
 127.0.0.1	localhost
 255.255.255.255	broadcasthost
 ::1             localhost
-54.171.202.99 api.example.com
-54.171.202.99 es.example.com
-54.171.202.99 gb.example.com
+[PUBLIC IP] api.example.com
+[PUBLIC IP] es.example.com
+[PUBLIC IP] gb.example.com
+```
 
 And now lets add some host based routing to our ingress configuration :
 
+```
 Mattbook-Pro:ingress matt$ cat hosts-ingress.yaml 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -387,19 +413,27 @@ spec:
         backend:
           serviceName: hola-mundo
           servicePort: 80
+```
 
+And
+
+```
 Mattbook-Pro:ingress matt$ kubectl create -f hosts-ingress.yaml 
 ingress "hosts-ingress" created
+```
 
 With this configuration we basically have name based virtual hosts, where depending on the host requested we route the traffic differently. Here we are just using the root path, but of course, we can also combine this with paths for a ton of flexibility. 
 
+```
 Mattbook-Pro:ingress matt$ curl gb.example.com
 "Hello from Kubernetes!"
 Mattbook-Pro:ingress matt$ curl es.example.com
 "Hola de Kubernetes!"
+```
 
 We can even do path rewrites in our ingress rules :
 
+```
 Mattbook-Pro:ingress matt$ cat rewrite.yaml 
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -417,5 +451,6 @@ spec:
         backend:
           serviceName: hello-world
           servicePort: 80
+```
 
 Using the ingress.kubernetes.io/rewrite-target annotation, we can ensure that any requests to /old will be rewritten to direct to /new.
