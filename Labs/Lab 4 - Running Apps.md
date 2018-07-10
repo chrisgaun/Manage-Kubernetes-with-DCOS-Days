@@ -166,3 +166,17 @@ spec:
         nginx-deployment-148880595-fxcez   1/1       Running   0          2m
         nginx-deployment-148880595-rwovn   1/1       Running   0          2m
 
+## Deleting the application
+
+Show existing deployments:
+```
+$ kubectl get deployments
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   4         4         4            4           10m
+```
+
+Delete Deployment:
+
+```
+kubectl delete deployment nginx-deployment
+```
