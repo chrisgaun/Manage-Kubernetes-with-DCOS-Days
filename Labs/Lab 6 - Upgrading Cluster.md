@@ -17,7 +17,7 @@ $ dcos package describe kubernetes --package-versions
 ```
 
 ## Update DC/OS Kubernetes CLI
-Before starting the update process, it is mandatory to update the CLI to the new version, in our case 1.1.1-1.10.4:
+Before starting the update process, it is mandatory to update the CLI to the new version, in our case 1.2.0-1.10.5:
 
 ```
 $ dcos package install kubernetes --cli --package-version=1.2.0-1.10.5
