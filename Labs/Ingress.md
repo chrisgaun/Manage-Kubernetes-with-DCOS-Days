@@ -1,3 +1,10 @@
+##Prereq
+
+Need a Kubernetes cluster without RBAC enabled
+
+##Instructions 
+
+
 The first step we’re going to need to do is to deploy a default backend service. This is used by the Nginx ingress controller in the event that services are unavailable. The default backend image needs to satisfy two requirements :
 
 Serve a 404 page at /
