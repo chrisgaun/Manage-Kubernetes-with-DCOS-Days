@@ -10,7 +10,7 @@ Mesosphere DC/OS open source software goal with Kubernetes is to transforms any 
 
 Your instructor has set up lab enviroments and will hand out IP addresses and credentials. After the course, you can install an open source DC/OS cluster 
 * **Public Cloud Installation** - Kubernetes with DC/OS Quickstart (public cloud) for when go home [HERE](https://github.com/mesosphere/dcos-kubernetes-quickstart)
-* **On Premesis Installation** - DC/OS with Ansible [HERE](https://github.com/dcos-labs/ansible-dcos) 
+* **On Premise Installation** - DC/OS with Ansible [HERE](https://github.com/dcos-labs/ansible-dcos) 
 * **Slack** - Join DC/OS Slack [HERE](https://chat.dcos.io/)
 
 ![](https://i.imgur.com/rIJ1ZxF.png)
