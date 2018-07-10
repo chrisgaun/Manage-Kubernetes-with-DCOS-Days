@@ -52,11 +52,11 @@ for id in $(dcos node --json | jq --raw-output '.[] | select(.attributes.public_
 do dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --mesos-id=$id "curl -s ifconfig.co" ; done 2>/dev/null
 ```
 
-Connect kubectl using following command and replacing “https://kube-apiserver.example.com:6443” with the public IP address 
+Connect kubectl using following command and inputting the public IP address where indicated
 
 ```
 $ dcos kubernetes --name=[CLUSTERNAME] kubeconfig \    
-  --apiserver-url https://54.202.33.83:6443 \
+  --apiserver-url https://[PUBLIC_IP]:6443” \
   --insecure-skip-tls-verify
 ```
 
