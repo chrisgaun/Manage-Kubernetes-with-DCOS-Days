@@ -5,76 +5,9 @@
 Are you wondering how [Java](http://www.oracle.com/technetwork/java/index.html), [Spring Boot](https://projects.spring.io/spring-boot/), [MySQL](https://www.mysql.com), [Neo4j](https://neo4j.com), [Apache Zeppelin](https://zeppelin.apache.org/), [Apache Spark](https://spark.apache.org/), [Elasticsearch](https://www.elastic.co),  [Apache Mesos](https://mesos.apache.org/), [DC/OS](https://dcos.io), [Kubernetes](https://kubernetes.io/) and [Helm](https://helm.sh) can all fit in one demo? Well, we'll show you! This is a cool demo, so grab your favourite beer and enjoy. 🍺
 
 
-## DC/OS cluster with Kubernetes
+### Prerequisite
 
-**Note:** In order to deploy all parts of this demo successfully, I would recommend to spin up a cluster with at least **7** private DC/OS nodes, also you will need Kubernetes package to be installed (Instruction are provided below).
-
-If you do not have DC/OS cluster you can easily bootstrap it as per [dcos-kubernetes-quickstart](https://github.com/mesosphere/dcos-kubernetes-quickstart).
-By default install is set to **3** private DC/OS nodes, you need to [set](https://docs.mesosphere.com/service-docs/beta-kubernetes/0.3.0-1.7.10-beta/advanced-install/#change-the-number-of-kubernetes-worker-nodes) it to **7**.
-
-### Installing DC/OS CLI
-
-The recommended method to install the DC/OS CLI is from the DC/OS web interface. Or, you can manually install the CLI by using the instructions below.
-
-Installing the DC/OS CLI on [Linux](https://dcos.io/docs/1.10/cli/install/#linux)
-
-Installing the DC/OS CLI on [macOS](https://dcos.io/docs/1.10/cli/install/#osx)
-
-### Connecting to DC/OS cluster
-
-Connect to your DC/OS cluster:
-```bash
-dcos cluster setup <http://REPLACE_WITH_YOUR_MASTER_IP>
-```
-
-Check that cluster in the list:
-```bash
-dcos cluster list
-        NAME                       CLUSTER ID               VERSION           URL
-blabla-vad0b3*                      11-333-44-55            1.10.2            http://1.2.3.4
-```
-
-### Installing Kubernetes (if you have't done it already)
-
-To install Kubernetes on DC/OS is easy as:
-```bash
-dcos package install --yes beta-kubernetes
-```
-
-Wait till it gets installed, you can check it's progress in DC/OS Dashboard/Services/kubernetes.
-
-### Installing kubectl
-
-Use the Kubernetes command-line tool, kubectl, to deploy and manage applications on Kubernetes. Using kubectl, you can inspect cluster resources; create, delete, and update components; and look at your new cluster and bring up example apps.
-
-Follow instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to download and install.
-
-### Connecting to Kubernetes API
-
-In order to access the Kubernetes API from outside the DC/OS cluster, one needs SSH access to a node-agent.
-On a terminal window, run:
-
-```bash
-ssh -4 -N -L 9000:apiserver-insecure.kubernetes.l4lb.thisdcos.directory:9000 <REPLACE_WITH_YOUR_REMOTE_LINUX_USERNAME>@<http://REPLACE_WITH_YOUR_MASTER_IP>
-```
-
-When the Kubernetes API task(s) are healthy, it should be accessible on `http://localhost:9000`.
-
-We are now ready to install and configure `kubectl`, the Kubernetes CLI tool. For the sake of simplicity, we'll be covering the set-up alone:
-```bash
-kubectl config set-cluster dcos-k8s --server=http://localhost:9000
-kubectl config set-context dcos-k8s --cluster=dcos-k8s --namespace=default
-kubectl config use-context dcos-k8s
-```
-
-Test access by retrieving the Kubernetes cluster nodes:
-```bash
-$ kubectl get nodes
-NAME                                   STATUS    AGE       VERSION
-kube-node-0-kubelet.kubernetes.mesos   Ready     7m        v1.9.0
-kube-node-1-kubelet.kubernetes.mesos   Ready     7m        v1.9.0
-kube-node-2-kubelet.kubernetes.mesos   Ready     7m        v1.9.0
-```
+This lab assumes you have a Kubernetes cluster and kubectl with API Server access from the previous labs. 
 
 ### Helm setup
 
