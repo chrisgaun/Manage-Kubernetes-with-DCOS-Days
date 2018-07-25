@@ -25,7 +25,7 @@ Use an editor such as vi to change the config file and update the "node_count" t
 ```
 "kubernetes": {
     "cloud_provider": "(none)",
-    "high_availability": false,
+    "high_availability": true,
     "network_provider": "dcos",
     "node_count": 2,
     "public_node_count": 0,
