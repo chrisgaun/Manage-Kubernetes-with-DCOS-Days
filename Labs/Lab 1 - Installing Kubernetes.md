@@ -114,7 +114,7 @@ dcos package install marathon-lb
 
 kubectl-proxy service:
 ```
-$ cat <<EOF > kubectl-proxy.json
+$ cat >> kubectl-proxy.json <<EOF
 {
   "id": "/kubectl-proxy",
   "instances": 1,
@@ -152,7 +152,7 @@ Find your public DC/OS agent IP (make sure to have jq installed - on Mac "brew i
 for id in $(dcos node --json | jq --raw-output '.[] | select(.attributes.public_ip == "true") | .id'); \
 do dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --mesos-id=$id "curl -s ifconfig.co" ; done 2>/dev/null
 ```
-When multiple public DC/OS are deployed another option to find the IPs would be to use a script like the following:
+When multiple public DC/OS agents are deployed another option to find the IPs would be to use a script like the following:
 
 ```
 $ cat >> get-dcos-public-agent-ip.sh <</'EOF'
