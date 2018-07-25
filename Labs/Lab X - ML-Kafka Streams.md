@@ -1,0 +1,111 @@
+Credit to Andrew Grzeskowiak for creating this demo for DC/OS
+
+## Kafka Streams Demo
+
+For this demo we will show you how easy it is to run your microservices and dataservices in one single DC/OS cluster using the same resources.
+
+### Use Case
+Today we will be simulating a predictive streaming application, more specifically we will be analyzing incoming real-time Airline flight data to predict whether flights are on-time or delayed
+
+### Data Set
+The raw dataset we will be using in our load generator is from (here)https://github.com/h2oai/h2o-2/wiki/Hacking-Airline-DataSet-with-H2O]
+
+### Architecture
+
+We will simulate an incoming real-time data stream by using the `load-generator.yaml` below that is a docker container built to send data to Confluent Kafka running on DC/OS:
+```
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kafka-streams-workload-generator
+spec:
+  selector:
+    matchLabels:
+      app: kafka-streams-workload-generator
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: kafka-streams-workload-generator
+    spec:
+      containers:
+      - name: kafka-streams-workload-generator
+        image: greshwalk/kafka-streams-workload-generator:latest
+```
+
+The airline prediction microservice `airline-prediction.yaml` below is a docker container built to read directly off of the DC/OS Kafka broker endpoints to make analytic predictions on flight status:
+```
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kafka-streams
+spec:
+  selector:
+    matchLabels:
+      app: kafka-streams
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: kafka-streams
+    spec:
+      containers:
+      - name: kafka-streams
+        image: greshwalk/kafka-streams:latest
+```
+
+## Getting Started
+
+First, we need to deploy Confluent Kafka
+```
+dcos package install confluent-kafka
+```
+
+Once Confluent Kafka is installed, create two topics called `AirlineOutputTopic` and `AirlineInputTopic`
+```
+dcos confluent-kafka --name confluent-kafka topic create AirlineOutputTopic --partitions 10 --replication 3
+dcos confluent-kafka --name confluent-kafka topic create AirlineInputTopic --partitions 10 --replication 3
+```
+
+Deploy the load generator service defined in the Architecture section above:
+```
+kubectl create -f load-generator.yaml
+```
+
+Deploy the predictive streaming application defined in the Architecture section above:
+```
+kubectl create -f airline-prediction.yaml
+```
+
+Navigate to the K8s UI:
+
+If you haven't already, run:
+```
+kubectl proxy
+```
+
+Point your browser to:
+```
+http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/http:kubernetes-dashboard:/proxy/
+```
+
+From the Dashboard navigate to pods --> kafka-streams-XXXXX pod --> logs. Output should resemble below:
+```
+#####################
+Flight Input:1999,10,14,3,741,730,912,849,PS,1451,NA,91,79,NA,23,11,SAN,SFO,447,NA,NA,0,NA,0,NA,NA,NA,NA,NA,YES,YES
+Label (aka prediction) is flight departure delayed: NO
+Class probabilities: 0.5955978728809052,0.40440212711909485
+#####################
+#####################
+Flight Input:1987,10,14,3,741,730,912,849,PS,1451,NA,91,79,NA,23,11,SAN,SFO,447,NA,NA,0,NA,0,NA,NA,NA,NA,NA,YES,YES
+Label (aka prediction) is flight departure delayed: YES
+Class probabilities: 0.4319916897116479,0.5680083102883521
+#####################
+#####################
+Flight Input:1999,10,14,3,741,730,912,849,PS,1451,NA,91,79,NA,23,11,SAN,SFO,447,NA,NA,0,NA,0,NA,NA,NA,NA,NA,YES,YES
+Label (aka prediction) is flight departure delayed: NO
+Class probabilities: 0.5955978728809052,0.40440212711909485
+#####################
+```
+
+### Congratulations! You just deployed a microservice application on DC/OS that easily connects to a Confluent Kafka dataservice running on the same cluster!
