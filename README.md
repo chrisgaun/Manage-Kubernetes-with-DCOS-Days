@@ -1,6 +1,6 @@
 # Manage Kubernetes with DCOS Days
 
-Mesosphere DC/OS open source software goal with Kubernetes is to transforms any infrastructure into a Kubernetes cloud provider, automating Kubernetes everywhere: 
+Mesosphere DC/OS transforms any infrastructure into a Kubernetes cloud provider, automating Kubernetes everywhere: 
 
 * Bare metal
 * Virtual machines
